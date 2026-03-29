@@ -13,3 +13,7 @@ for name, group in df1:
 from login_analyzer import LoginAnalyzer
 analyzer = LoginAnalyzer(df1)
 analyzer.check_failed_logins()
+
+analyzer.check_suspicious_hours()
+analyzer.check_multiple_ips()
+analyzer.get_stats()
