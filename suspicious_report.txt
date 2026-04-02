@@ -1,0 +1,11 @@
+SUSPICIOUS ACTIVITY REPORT
+
+[!] alice — 4 failed login attempts
+[!] eve — 4 failed login attempts
+[!] bob — login at unusual hour
+[!] eve — login at unusual hour
+[!] henry — login at unusual hour
+[!] charlie — login from multiple ips
+[!] eve — login from multiple ips
+
+Total flagged: 7
