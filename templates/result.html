@@ -8,19 +8,18 @@
 <body>
     <h1>{{ result }}</h1>
 
-    <h2>Login Analysis Charts</h2>
+    {% if user_findings %}
+    <h2>Why {{ username }} was flagged:</h2>
+    <ul>
+        {% for finding in user_findings %}
+        <li>{{ finding }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 
-    <h3>Failed Logins Per User</h3>
-    <img src="/static/failed_logins.png" width="600">
-
-    <h3>Suspicious vs Normal Users</h3>
-    <img src="/static/suspicious_ratio.png" width="400">
-
-    <h3>Login Attempts Over Time</h3>
-    <img src="/static/login_timeline.png" width="600">
-
-    <br><br>
+    <br>
     <a href="/">Try Again</a>
+    <a href="/dashboard">Admin Dashboard</a>
 </body>
 
 </html>
