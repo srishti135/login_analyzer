@@ -1,7 +1,11 @@
 import pandas
+import numpy
 class LoginAnalyzer:
+    #stored the grouped login data when analyzer is created
     def __init__(self, grouped_data):
         self.data = grouped_data 
+
+    # flags users with 3 or more failed login attempts
     def check_failed_logins(self):
         for name, group in self.data:
             failed_logins = group[group["status"] == "FAILED"]
@@ -9,23 +13,52 @@ class LoginAnalyzer:
                 print(f"User: {name} has {len(failed_logins)} failed login attempts.")
                 if len(failed_logins) > 3:
                     print(f"Alert: User {name} has more than 3 failed login attempts!")
-    
+
+    #flags users who logged in before 6AM or after 11PM
     def check_suspicious_hours(self):
         for name, group in self.data:
             group["timestamp"] = pandas.to_datetime(group["timestamp"])
             hour = group["timestamp"].dt.hour
             if (hour < 6).any() or (hour >= 23).any():
                  print(f"{name} is suspicious")
+
+     #flags users who logged in from more than 2 different IPs
     def check_multiple_ips(self):
         for name, group in self.data:
             unique_ips = group["ip_address"].nunique()
             if unique_ips > 2:
                 print(f"{name} logged in from {unique_ips} different IPs — suspicious")
+
+    #calculates mean and std deviation of failed login using numpy            
     def get_stats(self):
-        import numpy
         failed_counts = []
         for name, group in self.data:
             count = len(group[group["status"] == "FAILED"])
             failed_counts.append(count)
         print("Mean failed logins:", numpy.mean(failed_counts))
         print("Std deviation:", numpy.std(failed_counts))
+   #old versions that just prints 
+   #new version from here where it returns findings
+   
+    def check_failed_logins(self):
+        findings = []
+        for name, group in self.data:
+            failed_logins = group[group["status"] == "FAILED"]
+            if len(failed_logins) >= 3:
+                findings.append(f"[!] {name} — {len(failed_logins)} failed login attempts")
+        return findings
+    def check_suspicious_hours(self):
+        findings = []
+        for name, group in self.data:
+            group["timestamp"] = pandas.to_datetime(group["timestamp"])
+            hour = group["timestamp"].dt.hour
+            if (hour < 6).any() or (hour >= 23).any():
+                findings.append(f"[!] {name} — login at unusual hour")
+        return findings
+    def check_multiple_ips(self):
+        findings=[]
+        for name, group in self.data:
+            unique_ips = group["ip_address"].nunique()
+            if unique_ips > 2:
+                findings.append(f"[!] {name} — login from multiple ips")
+        return findings
