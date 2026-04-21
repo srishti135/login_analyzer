@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 from file_handler import load_logs
 import pandas
+import os
+os.makedirs("static", exist_ok=True)
 
 # Bar chart of failed logins per user
 def plot_failed_logins():
