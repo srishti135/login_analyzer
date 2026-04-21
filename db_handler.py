@@ -1,5 +1,13 @@
 import pymongo
-client = pymongo.MongoClient("mongodb://localhost:27017/")
+import os
+import certifi
+
+MONGO_URL = os.environ.get("MONGO_URL", "mongodb://localhost:27017/")
+
+client = pymongo.MongoClient(MONGO_URL, tlsCAFile=certifi.where())
+db = client["login_security"]
+collection = db["flagged_users"]
+
 db = client["login_security"]
 collection = db["flagged_users"]
 # Inserts a flagged user into MongoDB
