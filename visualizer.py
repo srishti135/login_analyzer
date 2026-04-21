@@ -13,9 +13,7 @@ def plot_failed_logins():
     plt.ylabel("Failed Attempts")
     plt.tight_layout()
     plt.savefig("static/failed_logins.png")
-    plt.show()
 
-plot_failed_logins()
 
 # Pie chart of suspicious vs normal users
 def plot_suspicious_ratio():
@@ -32,9 +30,7 @@ def plot_suspicious_ratio():
     plt.pie(sizes, labels=labels, colors=colors, autopct="%1.1f%%")
     plt.title("Suspicious vs Normal Users")
     plt.savefig("static/suspicious_ratio.png")
-    plt.show()
 
-plot_suspicious_ratio()
 
 # Line graph of login attempts over time
 def plot_login_timeline():
@@ -51,9 +47,7 @@ def plot_login_timeline():
     plt.grid(True)
     plt.tight_layout()
     plt.savefig("static/login_timeline.png")
-    plt.show()
 
-plot_login_timeline()
 
 plot_failed_logins()
 plot_suspicious_ratio()
