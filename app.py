@@ -36,6 +36,17 @@ def check():
         result = f"Access Granted — Welcome {username}!"
 
     return render_template("result.html", result=result, username=username, user_findings=user_findings)
+@app.route("/dashboard")
+def dashboard():
+    df = load_logs("logs/login_logs.csv")
+    df1 = group_by_user(df)
+    analyzer = LoginAnalyzer(df1)
+
+    all_findings = analyzer.check_failed_logins()
+    all_findings += analyzer.check_suspicious_hours()
+    all_findings += analyzer.check_multiple_ips()
+
+    return render_template("dashboard.html", all_findings=all_findings)
 if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
