@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+
+    <h2>All Flagged Users</h2>
+    <ul>
+        {% for finding in all_findings %}
+        <li>{{ finding }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Login Analysis Charts</h2>
+
+    <h3>Failed Logins Per User</h3>
+    <img src="/static/failed_logins.png" width="600">
+
+    <h3>Suspicious vs Normal Users</h3>
+    <img src="/static/suspicious_ratio.png" width="400">
+
+    <h3>Login Attempts Over Time</h3>
+    <img src="/static/login_timeline.png" width="600">
+
+    <br><br>
+    <a href="/">Back to Login</a>
+</body>
+</html>
